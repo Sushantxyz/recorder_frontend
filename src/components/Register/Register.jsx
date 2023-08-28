@@ -6,8 +6,6 @@ import { Context, server } from "../../main";
 
 const Register = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
-  const { isregister, setisregister } = useContext(Context);
-
 
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
@@ -26,23 +24,24 @@ const Register = () => {
 
   const sendRequest = async () => {
     try {
-      const response = await axios.post(`${server}/register`, {
-        username: inputs.name,
-        email: inputs.email,
-        password: inputs.password,
-      },{
-        withCredentials: true,
-      });
-      console.log(response.data); // Assuming your response has data you want to log
+      const response = await axios.post(
+        `${server}/register`,
+        {
+          username: inputs.name,
+          email: inputs.email,
+          password: inputs.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       setIsAuthenticated(true);
-      navigate("/"); // Navigate to the desired page after successful registration
+      navigate("/");
     } catch (error) {
-      if (error.response.status == 400){
-        // setisregister(true)
-        alert("Already registered...")
-        navigate("/login")
+      if (error.response.status === 400) {
+        alert("Already registered...");
+        navigate("/login");
       }
-      // Handle errors or navigate to the registration page
     }
   };
 

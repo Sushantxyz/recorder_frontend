@@ -20,15 +20,7 @@ const VideoRecorder = () => {
         localStorage.removeItem("recordedVideo");
       }
     }
-  }, [recordedVideo,stream]);
-
-  useEffect(() => {
-    if (!isAuthenticated && stream) {
-      stream.getTracks().forEach((track) => track.stop());
-      setStream(null);
-    }
-  }, [isAuthenticated, stream]);
-
+  }, [recordedVideo]);
 
   const getCameraPermission = async () => {
     setRecordedVideo(null);
@@ -65,7 +57,6 @@ const VideoRecorder = () => {
             audioConstraints
           );
 
-          // Combine audio and video streams
           combinedStream.addTrack(audioStream.getAudioTracks()[0]);
         } catch (audioError) {
           // If audio permission is denied, use only video stream

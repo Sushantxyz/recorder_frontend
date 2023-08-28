@@ -6,8 +6,6 @@ import { Context, server } from "../../main";
 
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
-
-  const [islogout, setislogout] = useState(false);
   const [isRegister, setIsRegister] = useState(true);
   const navigate = useNavigate();
 
@@ -22,7 +20,7 @@ const Header = () => {
       setIsAuthenticated(true);
     }
   };
-
+  
   const handleToggle = () => {
     setIsRegister((prevIsRegister) => !prevIsRegister);
   };

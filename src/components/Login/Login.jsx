@@ -3,12 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../Login/Login.css";
 import { server, Context } from "../../main";
+
 const Login = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
-  const { isregister, setisregister } = useContext(Context);
-
   const navigate = useNavigate();
-
   const [inputs, setInputs] = useState({
     name: "",
     password: "",
@@ -24,23 +22,23 @@ const Login = () => {
 
   const sendRequest = async () => {
     try {
-      const response = await axios.post(`${server}/login`, {
-        username: inputs.name,
-        password: inputs.password,
-      },{
-        withCredentials: true,
-      }
+      const response = await axios.post(
+        `${server}/login`,
+        {
+          username: inputs.name,
+          password: inputs.password,
+        },
+        {
+          withCredentials: true,
+        }
       );
-      console.log(response.status); // Assuming your response has data you want to log
       setIsAuthenticated(true);
       navigate("/");
     } catch (error) {
-      console.log(error.response.status);
-      if (error.response.status == 401) {
+      if (error.response.status === 401) {
         alert("Incorrect password...");
         navigate("/login");
       } else {
-        // setisregister(true);
         alert("Register first...");
         navigate("/register");
       }
